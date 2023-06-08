@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>My Book List</title>
+    <th:block th:replace="layout :: link-css"></th:block>
+</head>
+<body>
+<th:block th:replace="layout :: header"></th:block>
+<div class="container">
+    <h1 th:text=@{title}></h1>
+  <table class="table">
+    <tr>
+      <th>Mã Nhân Viên</th>
+      <th>Tên Nhân Viên</th>
+      <th>Giới Tính</th>
+      <th>Nơi Sinh</th>
+      <th>Tên Phòng</th>
+      <th>Lương</th>
+    </tr>
+    <tr th:each="NhanVien : ${nhanviens}">
+      <td th:text="${NhanVien.Ma_NV}"></td>
+      <td th:text="${NhanVien.Ten_NV}"></td>
+      <td >
+      <img th:src="@{${NhanVien.Phai} == 'Nam' ? '/img/nam.png' : '/img/nu.png'}" alt="Hình ảnh giới tính" style="width: 40px; height: 40px;" >
+      </td>
+      <td th:text="${NhanVien.Noi_Sinh}"></td>
+      <td th:text="${NhanVien.PhongBan.Ten_Phong}"></td>
+      <td th:text="${NhanVien.Luong}"></td>
+      <td>
+        <a th:href="@{/nhanviens/edit/{Ma_NV}(Ma_NV=${NhanVien.Ma_NV})}">Edit</a> |
+        <a th:href="@{/nhanviens/delete/{Ma_NV}(Ma_NV=${NhanVien.Ma_NV})}"
+        onclick="return confirm('Are you sure?')">Delete</a>
+      </td>
+    </tr>
+  </table>
+</div>
+<th:block th:replace="layout :: footer"></th:block>
+</body>
+</html>
+
